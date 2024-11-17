@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
 import express from 'express';
 import cors from 'cors';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 const app = express();
 
 app.use(cors());
 
-app.get('/contacts', (req, res) => {
-  res.send({ status: 200, data: ['Contacts'] });
+app.get('/contacts', async (req, res) => {
+  const contacts = await getAllContacts();
+  res.send({
+    status: 200,
+    message: 'Successfully found contacts!',
+    data: contacts,
+  });
 });
 
 app.get('/contacts/:id', (req, res) => {
