@@ -41,7 +41,11 @@ export const createContactController = async (req, res) => {
   const result = await createContact(contact);
   res
     .status(201)
-    .send({ message: 'Successfully created a contact!', data: result });
+    .send({
+      status: 201,
+      message: 'Successfully created a contact!',
+      data: result,
+    });
 };
 
 export const updateContactController = async (req, res) => {
@@ -62,7 +66,11 @@ export const updateContactController = async (req, res) => {
 
   res
     .status(200)
-    .send({ message: 'Successfully patched a contact!', data: result });
+    .send({
+      status: 200,
+      message: 'Successfully patched a contact!',
+      data: result,
+    });
 };
 
 export const deleteContactController = async (req, res) => {
