@@ -10,6 +10,6 @@ export const errorHandler = (error, _req, res, _next) => {
 
   res.status(500).send({
     message: 'Something went wrong',
-    error: error.message,
+    data: error.message,
   });
 };
