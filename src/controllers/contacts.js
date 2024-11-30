@@ -6,9 +6,23 @@ import {
   updateContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
-export const getContactsController = async (_req, res) => {
-  const contacts = await getAllContacts();
+export const getContactsController = async (req, res) => {
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+  const filter = parseFilterParams(req.query);
+
+  const contacts = await getAllContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
+
   res.send({
     status: 200,
     message: 'Successfully found contacts!',
@@ -39,13 +53,11 @@ export const createContactController = async (req, res) => {
   };
 
   const result = await createContact(contact);
-  res
-    .status(201)
-    .send({
-      status: 201,
-      message: 'Successfully created a contact!',
-      data: result,
-    });
+  res.status(201).send({
+    status: 201,
+    message: 'Successfully created a contact!',
+    data: result,
+  });
 };
 
 export const updateContactController = async (req, res) => {
@@ -64,13 +76,11 @@ export const updateContactController = async (req, res) => {
     throw new createHttpError[404]('Contact not found');
   }
 
-  res
-    .status(200)
-    .send({
-      status: 200,
-      message: 'Successfully patched a contact!',
-      data: result,
-    });
+  res.status(200).send({
+    status: 200,
+    message: 'Successfully patched a contact!',
+    data: result,
+  });
 };
 
 export const deleteContactController = async (req, res) => {
