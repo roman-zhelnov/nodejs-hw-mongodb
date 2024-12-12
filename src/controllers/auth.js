@@ -15,7 +15,7 @@ export const registerController = async (req, res) => {
   const registeredUser = await registerUser(payload);
 
   res.send({
-    status: 200,
+    status: 201,
     message: 'Successfully registered a user!',
     data: registeredUser,
   });
