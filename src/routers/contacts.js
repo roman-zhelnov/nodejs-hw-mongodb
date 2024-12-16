@@ -7,6 +7,8 @@ import {
   updateContactController,
 } from '../controllers/contacts.js';
 
+import { upload } from '../middlewares/upload.js';
+
 import { validateBody } from '../middlewares/validateBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { isValidId } from '../middlewares/isValidId.js';
@@ -24,6 +26,7 @@ router.get('/:id', isValidId, ctrlWrapper(getContactByIdController));
 
 router.post(
   '/',
+  upload.single('photo'),
   jsonParser,
   validateBody(contactSchemaForValid),
   ctrlWrapper(createContactController),
@@ -31,6 +34,7 @@ router.post(
 
 router.patch(
   '/:id',
+  upload.single('photo'),
   isValidId,
   jsonParser,
   validateBody(replaceContactSchema),
