@@ -1,0 +1,74 @@
+tags:
+  - Contacts
+summary: Create contact
+operationId: createContact
+description: 'Create a contact with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - phoneNumber
+          - contactType
+          - userId
+        properties:
+          name:
+            description: 'Contact name'
+            type: string
+            example: 'John Doe'
+          phoneNumber:
+            description: 'Contact phone number'
+            type: string
+            example: '0986322121'
+          email:
+            description: 'Contact email'
+            type: string
+            example: vasyl9@example.com
+          isFavourite:
+            description: 'Contact is favourite'
+            type: boolean
+            example: false
+          contactType:
+            description: 'Contact type'
+            type: string
+            enum: ['work', 'home', 'personal']
+            example: personal
+          userId:
+            description: 'Contact user id'
+            type: string
+            example: 675724c06228af9c7c70ef23
+          photo:
+            description: 'Contact photo'
+            type: string
+            format: binary
+responses:
+  '201':
+    description: Successfully created a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact!
+            data:
+              type: object
+              $ref: '../../components/schemas/contact.yaml'
+  '400':
+    $ref: '../../components/responses/400_isNotValidBody.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'
