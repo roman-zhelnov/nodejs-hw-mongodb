@@ -16,6 +16,7 @@ import {
   contactSchemaForValid,
   replaceContactSchema,
 } from '../validation/contact.js';
+import { bodyCleaner } from '../middlewares/bodyCleaner.js';
 
 const router = express.Router();
 const jsonParser = express.json();
@@ -27,6 +28,7 @@ router.get('/:id', isValidId, ctrlWrapper(getContactByIdController));
 router.post(
   '/',
   upload.single('photo'),
+  bodyCleaner,
   jsonParser,
   validateBody(contactSchemaForValid),
   ctrlWrapper(createContactController),
@@ -35,6 +37,7 @@ router.post(
 router.patch(
   '/:id',
   upload.single('photo'),
+  bodyCleaner,
   isValidId,
   jsonParser,
   validateBody(replaceContactSchema),

@@ -14,7 +14,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
         properties:
           name:
             description: 'Contact name'
@@ -37,10 +36,6 @@ requestBody:
             type: string
             enum: ['work', 'home', 'personal']
             example: personal
-          userId:
-            description: 'Contact user id'
-            type: string
-            example: 675724c06228af9c7c70ef23
           photo:
             description: 'Contact photo'
             type: string
