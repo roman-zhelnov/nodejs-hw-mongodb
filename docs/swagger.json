@@ -12,6 +12,9 @@
   "servers": [
     {
       "url": "http://localhost:6060"
+    },
+    {
+      "url": "https://contacts-app-093f.onrender.com"
     }
   ],
   "tags": [
